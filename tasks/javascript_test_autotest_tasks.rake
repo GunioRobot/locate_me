@@ -10,14 +10,14 @@ namespace :test do
 
       since = TEST_CHANGES_SINCE
       touched = FileList[
-        'test/unit/*_test.html', 
+        'test/unit/*_test.html',
         'src/*.js'].select { |path| File.mtime(path) > since }
       next if touched.blank?
-      
+
       gem 'newjs'
       require 'newjs'
       require 'newjs/autotest'
-      
+
       touched.each do |file|
         if file =~ /\/([^\/]+)\.js$/
           file = "test/unit/#{$1}_test.html"
@@ -37,7 +37,7 @@ namespace :test do
           browser = JavascriptTestAutotest::Browser.browser(name, path)
           browser.setup
           browser.visit(file)
-          browser.teardown          
+          browser.teardown
         end
       end
     end

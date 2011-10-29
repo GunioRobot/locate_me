@@ -143,7 +143,7 @@ LokiPlugin.prototype.browserSupported = function()
          BrowserDetect.OS != "Mac" &&
          BrowserDetect.OS != "Linux") ||
         (BrowserDetect.browser != "Explorer" &&
-         BrowserDetect.browser != "Firefox" && 
+         BrowserDetect.browser != "Firefox" &&
          BrowserDetect.browser != "Safari" &&
          BrowserDetect.browser != "Opera"))
     {
@@ -207,7 +207,7 @@ LokiPlugin.prototype.requestLocationBy = function(IP, latlon, addressLookup, ret
 
     if (true == LokiPlugin.waitingRet) return;
     LokiPlugin.waitingRet = true;
-    
+
     if (LokiPlugin.xpcom != null)
         this.runRequestLocation_XPCOM(IP, latlon, addressLookup);
     else
@@ -231,7 +231,7 @@ LokiPlugin.prototype.onFailureProxy = function(errcode)
 LokiPlugin.prototype.onSuccessProxy = function(location)
 {
     LokiPlugin.waitingRet = false;
-    
+
     if (this.onSuccess != undefined)
         this.onSuccess(location);
     // Workaround for IE
@@ -296,7 +296,7 @@ LokiPlugin.prototype.runRequestLocation_XPCOM = function(IP, latlon, addressLook
     LokiPlugin.lastOnSuccess = this.onSuccess;
 
     LokiPlugin.xpcom.setKey(this.key);
-    
+
     try
     {
         LokiPlugin.xpcom.requestLocation(latlon, addressLookup);
@@ -314,7 +314,7 @@ LokiPlugin.prototype.runRequestLocation_IE = function(IP, latlon, addressLookup)
     LokiPlugin.lastOnSuccess = this.onSuccess;
 
     LokiPlugin.activex.setKey(this.key);
-    
+
     try
     {
         if (IP)
@@ -348,7 +348,7 @@ LokiPlugin.isInstalled_NPAPI = function(silent)
 
             LokiAPI.pluginDescription = navigator.plugins[i].description;
             return true;
-        } 
+        }
 
         if (navigator.plugins[i].name == "FindMe Plugin" ||
             navigator.plugins[i].name == "Find Me Plugin")
@@ -408,7 +408,7 @@ LokiPlugin.prototype.runRequestLocation_NPAPI_async = function(IP, latlon, addre
         LokiPlugin.plugin.asynchronousRequestIPLocation(this.key, latlon, addressLookup);
     else
         LokiPlugin.plugin.asynchronousRequestLocation(this.key, latlon, addressLookup);
-  
+
     setTimeout(function(){self.tickNpapiXHR();}, 100);
 }
 
@@ -456,7 +456,7 @@ LokiPlugin.prototype.tryToInstallPlugin = function()
         if (LokiAPI_PreloadNullapplet && !LokiPlugin.isInstalled(true))
         {
             if (  BrowserDetect.javaWaitingConfirmation &&
-                ( BrowserDetect.browser == "Explorer" || 
+                ( BrowserDetect.browser == "Explorer" ||
                  (BrowserDetect.browser == "Safari" && BrowserDetect.OS == "Windows") ||
                  (BrowserDetect.browser == "Firefox" && LokiPlugin.javaPluginDescription.indexOf('1.4.') != -1)
                 )
@@ -468,7 +468,7 @@ LokiPlugin.prototype.tryToInstallPlugin = function()
                 {
                     LokiPlugin.nullappletShouldRunInstaller = true;
                     setTimeout(fallbackToNativeInstaller, LokiPlugin.fallbackToNativeTimeout - nullappletUptime);
-                } 
+                }
                 else
                 {
                     fallbackToNativeInstaller();
@@ -481,7 +481,7 @@ LokiPlugin.prototype.tryToInstallPlugin = function()
         }
         else
         {
-            if ( BrowserDetect.browser == "Explorer" || 
+            if ( BrowserDetect.browser == "Explorer" ||
                 (BrowserDetect.browser == "Safari" && BrowserDetect.OS == "Windows") ||
                 (BrowserDetect.browser == "Firefox" && LokiPlugin.javaPluginDescription.indexOf('1.4.') != -1)
                )
@@ -510,14 +510,14 @@ LokiPlugin.downloadNativeInstaller = function()
         case "Windows":
             if (BrowserDetect.browser == "Explorer")
             {
-                if (window.XMLHttpRequest) 
+                if (window.XMLHttpRequest)
                 {
                     // IE 7
                     document.location.href = LokiPlugin.globalURLPrefix + "loki_activex.exe";
-                } else 
+                } else
                 {
                     // IE6
-                    window.open(LokiPlugin.globalURLPrefix + "loki_activex.exe", "download"); 
+                    window.open(LokiPlugin.globalURLPrefix + "loki_activex.exe", "download");
                 }
             }
             else
@@ -930,7 +930,7 @@ LokiPlugin.runNullapplet = function()
     {
         LokiPlugin.nullappletShouldRunInstaller = true;
     }
-    
+
     BrowserDetect.javaWaitingConfirmationSince = (new Date()).getTime();
 
     if (BrowserDetect.browser == "Safari")

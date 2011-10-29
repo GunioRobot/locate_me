@@ -7,7 +7,7 @@
 (function(){
   // inspired by protolicious, http://github.com/kangax/protolicious/blob/master/get_json.js
   var id = 0, head = $$('head')[0], global = this;
-  
+
   global.getMaxMindFunctions = function(url, callback) {
     var script = document.createElement('script'), token = '__jsonp' + id;
     script.src = url;
@@ -33,7 +33,7 @@
     head.appendChild(script);
     id++;
   }
-  
+
 })();
 
 
@@ -92,12 +92,12 @@ var MorizGmbH_LocateMe_ProviderBase = Class.create({
 
 
 /**
-* MorizGmbH_LocateMe_ProviderLoki 
-* Implements Loki.com 
+* MorizGmbH_LocateMe_ProviderLoki
+* Implements Loki.com
 *
 */
 var MorizGmbH_LocateMe_ProviderLoki = Class.create(MorizGmbH_LocateMe_ProviderBase, {
-  
+
   set_defaults: function() {
     this.name = "Loki";
   },
@@ -147,7 +147,7 @@ var MorizGmbH_LocateMe_ProviderLoki = Class.create(MorizGmbH_LocateMe_ProviderBa
 
 
 /**
-* MorizGmbH_LocateMe_ProviderGears 
+* MorizGmbH_LocateMe_ProviderGears
 * Implements Google Gears/Google Chrome
 *
 */
@@ -193,7 +193,7 @@ var MorizGmbH_LocateMe_ProviderGears = Class.create(MorizGmbH_LocateMe_ProviderB
 
 
 /**
-* MorizGmbH_LocateMe_ProviderW3C 
+* MorizGmbH_LocateMe_ProviderW3C
 *
 * Implements:
 *   - W3C Draft
@@ -249,7 +249,7 @@ var MorizGmbH_LocateMe_ProviderW3C = Class.create(MorizGmbH_LocateMe_ProviderBas
 
 
 /**
-* MorizGmbH_LocateMe_ProviderMaxMind 
+* MorizGmbH_LocateMe_ProviderMaxMind
 *
 * Implements MaxMind.com JavaScript Webservice for an IP based
 * less accurate geolocation.
@@ -337,7 +337,7 @@ var MorizGmbH_LocateMe_ProviderIPLocationTools = Class.create(MorizGmbH_LocateMe
 
     result.latitude  = parseFloat(data.Latitude);
     result.longitude = parseFloat(data.Longitude);
-  
+
     MorizGmbH_LocateMe.add_result(result);
   },
   handle_error: function(error) {
@@ -351,7 +351,7 @@ var MorizGmbH_LocateMe_ProviderIPLocationTools = Class.create(MorizGmbH_LocateMe
 
 
 /**
-* MorizGmbH_LocateMe_Klass 
+* MorizGmbH_LocateMe_Klass
 *
 * The main class that handles the providers
 *
@@ -373,11 +373,11 @@ var MorizGmbH_LocateMe_Klass = Class.create({
     this.provider_shortcuts.set('Loki',            'MorizGmbH_LocateMe_ProviderLoki');
     this.provider_shortcuts.set('MaxMind',         'MorizGmbH_LocateMe_ProviderMaxMind');
     this.provider_shortcuts.set('IPLocationTools', 'MorizGmbH_LocateMe_ProviderIPLocationTools');
-    
+
     // sorting = priority!
     this.selected_providers = [ 'W3C', 'Gears', 'Loki', 'IPLocationTools', 'MaxMind' ];
     this.available_methods  = new Hash();
-    
+
     this.results = new Array();
     this.errors     = 0;
     this.successes  = 0;
@@ -391,13 +391,13 @@ var MorizGmbH_LocateMe_Klass = Class.create({
       result[key] = custom[key];
     }
 
-    return result;  
+    return result;
   },
 
   set_callback: function(callback) {
     this.callback = callback;
   },
-  
+
   set_options: function(user_options) {
     this.options = this.mergeOptions(this.options, user_options);
   },
@@ -415,8 +415,8 @@ var MorizGmbH_LocateMe_Klass = Class.create({
   },
 
   check_available_geolocation_methods: function() {
-    var self = this; 
-    
+    var self = this;
+
     // reset
     this.available_methods = new Hash();
 
@@ -427,7 +427,7 @@ var MorizGmbH_LocateMe_Klass = Class.create({
       if (provider.available(self.options)) {
         console.log("Available: " + provider_shortcut);
         self.available_methods.set(provider_shortcut, provider);
-      } 
+      }
 
     });
   },
@@ -437,9 +437,9 @@ var MorizGmbH_LocateMe_Klass = Class.create({
       var provider_key = provider[0];
       var provider     = provider[1];
 
-      if (self.user_abort == true) { 
+      if (self.user_abort == true) {
         console.log("user abort")
-        return; 
+        return;
       }
 
       try {
@@ -447,7 +447,7 @@ var MorizGmbH_LocateMe_Klass = Class.create({
       } catch(e) {
         console.log(e);
       }
-    });  
+    });
   },
 
 });
@@ -455,7 +455,7 @@ var MorizGmbH_LocateMe_Klass = Class.create({
 
 var MorizGmbH_LocateMe = new MorizGmbH_LocateMe_Klass();
 
-/* 
+/*
 
 Example:
 ========
